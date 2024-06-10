@@ -31,3 +31,15 @@ footer{
     height: 10vh;
     background-color: darkgray;
 }
+
+.cohort img {
+    width: 200px;
+}
+
+.footer,.networks,.cohort {
+    height: 100%;
+}
+
+.networks img {    
+    height: 5vh;
+}
