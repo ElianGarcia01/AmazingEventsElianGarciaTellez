@@ -8,16 +8,7 @@ body{
 }
 
 .carousel-item img{
-    height: 82vh;
-}
-
-.carousel-item{
-    background-size: cover;
-    background-position: center;
-}
-
-.d-flex {
-    border: solid red;
+    max-height: 80vh;
 }
 
 .overlay {
@@ -29,19 +20,15 @@ body{
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-footer{
+.footer{
     height: 10vh;
+    width: 100%;;
     background-color: darkgray;
+
+    display: flex;
+    justify-content: space-around;
 }
 
-.cohort img {
-    width: 200px;
-}
-
-.footer,.networks,.cohort {
-    height: 100%;
-}
-
-.networks img {    
-    height: 5vh;
+.networks a img {    
+    height: 70%;
 }
