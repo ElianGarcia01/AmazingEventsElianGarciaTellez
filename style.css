@@ -1,5 +1,9 @@
 .image{
-    width: 200px;
+    max-width: 10rem;
+}
+
+.carousel-caption h5{
+    font-size: 2rem;
 }
 
 body{
@@ -20,14 +24,21 @@ body{
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.footer{
-    height: 10vh;
-    width: 100%;;
-    background-color: darkgray;
-    display: flex;
-    justify-content: space-around;
+.card {
+    border: 0;
 }
 
-.networks a img {    
-    height: 70%;
+footer {
+    background-color: #2C3E50;
+    color:white;
+}
+
+.icon_footer {
+    height: 2.5rem;
+    width: 2.5rem;
+}
+
+footer h3{
+    margin-bottom: 2rem;
+    font-size: 1.3rem;
 }
