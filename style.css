@@ -24,7 +24,6 @@ body{
     height: 10vh;
     width: 100%;;
     background-color: darkgray;
-
     display: flex;
     justify-content: space-around;
 }
