@@ -7,7 +7,7 @@
 }
 
 body{
-    background-color:darkcyan;
+    background-color: #ffff;
     min-height: 100vh;
 }
 
@@ -24,13 +24,12 @@ body{
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.card {
-    border: 0;
+.color-check{
+    border: solid 2px black;
 }
 
-footer {
-    background-color: #2C3E50;
-    color:white;
+.card {
+    border: solid 1px black;
 }
 
 .icon_footer {
