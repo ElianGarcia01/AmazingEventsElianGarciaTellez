@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Past Events</title>
+    <title>Stats</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
     <link rel="shortcut icon" href="./Recursos_Amazing_Events_Task_1/favicon.png" type="image/x-icon">
@@ -31,13 +31,13 @@
                     <a class="nav-link" aria-current="page" href="./Upcoming.html">UPCOMINGS EVENTS</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">PAST EVENTS</a>
+                    <a class="nav-link" aria-current="page" href="./Past_Events.html">PAST EVENTS</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="./Contact.html">CONTACT</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="./Stats.html">STATS</a>
+                    <a class="nav-link active" aria-current="page" href="#">STATS</a>
                   </li>
                 </ul>
               </div>
@@ -56,9 +56,9 @@
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" class="active" aria-current="true" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" class="active" aria-current="true" aria-label="Slide 5"></button>
         </div>
         <div class="carousel-inner">
           <div class="carousel-item">
@@ -77,7 +77,7 @@
               <p>Some representative placeholder content for the second slide.</p>
             </div>
           </div>
-          <div class="carousel-item active">
+          <div class="carousel-item">
             <img src="./Recursos_Amazing_Events_Task_1/optional_banner_1.jpg" class="d-block w-100" alt="banner3">
             <div class="overlay"></div>
             <div class="carousel-caption">
@@ -93,7 +93,7 @@
               <p>Some representative placeholder content for the third slide.</p>
             </div>
           </div>
-          <div class="carousel-item">
+          <div class="carousel-item active">
             <img src="./Recursos_Amazing_Events_Task_1/optional_banner_4.jpg" class="d-block w-100" alt="banner5">
             <div class="overlay"></div>
             <div class="carousel-caption">
@@ -118,111 +118,13 @@
     <!-- INICIA LA SEGUNDA SECCION DEL MAIN -->
 
 
-      <!-- CONTENEDOR DE DOS SECCIONES (CHECKBOXS Y TARJETAS)-->
+      <!-- INICIO DE LA SECCION DE TABLA-->
 
       <div class="container mb-5">
         
-        <!-- INICIO DE LA SECCION DE CHECKBOXS Y BARRA DE BUSQUEDAS-->
-
-        <div class="mt-4 mb-5">
-          <div class="row g-4">
-            <div class="col d-flex overflow-auto checkbox-container">
-              <div class="form-check form-check-inline">
-                <input class="form-check-input color-check" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1">Adventure</label> 
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input color-check" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox1">Arts & Culture</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input color-check" type="checkbox" id="inlineCheckbox3" value="option3">
-                <label class="form-check-label" for="inlineCheckbox1">Concerts & Music</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input color-check" type="checkbox" id="inlineCheckbox5" value="option5">
-                <label class="form-check-label" for="inlineCheckbox1">Food & Beverage</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input color-check" type="checkbox" id="inlineCheckbox6" value="option6">
-                <label class="form-check-label" for="inlineCheckbox1">Sports Events</label>
-              </div>
-            </div>
-            <div class="col col-12 col-md-4">
-              <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-danger" type="submit">Search</button>
-              </form>
-            </div>
-          </div>
-        </div>
-  
-        <!-- FIN DE LA SECCION CHECKBOXS Y BARRA DE BUSQUEDAS -->
-      
         
-        <!--  AQUI COMIENZA LA SECCION DE TARJETAS  -->
-      
-        <div class="container">
-          <div class="row row-cols-1 row-cols-md-4 g-3">
-            <div class="col">
-              <div class="card">
-                <img src="./Recursos_Amazing_Events_Task_1/costume_party.jpg" class="card-img-top img-fluid" alt="card">
-                <div class="card-body mx-auto h-100">
-                  <h5 class="card-title text-center">Costume Party</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between">
-                    <p>Price: $1000</p>
-                    <a href="#" class="btn btn-danger">Details</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card">
-                <img src="./Recursos_Amazing_Events_Task_1/music_concert.jpg" class="card-img-top" alt="concert">
-                <div class="card-body">
-                  <h5 class="card-title text-center">Music Concert</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between">
-                    <p>Price: $1000</p>
-                    <a href="#" class="btn btn-danger">Details</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card">
-                <img src="./Recursos_Amazing_Events_Task_1/marathon.jpg" class="card-img-top" alt="marathon">
-                <div class="card-body">
-                  <h5 class="card-title text-center">Marathon</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between">
-                    <p>Price: $1000</p>
-                    <a href="#" class="btn btn-danger">Details</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card">
-                <img src="./Recursos_Amazing_Events_Task_1/cinema.jpg" class="card-img-top" alt="cinema">
-                <div class="card-body">
-                  <h5 class="card-title text-center">Cinema</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between">
-                    <p>Price: $1000</p>
-                    <a href="#" class="btn btn-danger">Details</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--  FIN DE LA SECCION DE TARJETAS -->
-      </div>
-
-      <!--  AQUI FINALIZA EL CONTENEDOR DE LAS DOS SECCIONES -->
-        
+      </div>  
+      <!--  AQUI FINALIZA LA TABLA -->
     </main>
 
     <!-- AQUI FINALIZA EL MAIN -->
