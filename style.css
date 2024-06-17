@@ -24,25 +24,17 @@ body{
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.border_form {
-    border: solid 1px black;
-}
-
 .resize_textarea {
     resize: none;
 }
 
-.color-check{
-    border: solid 2px black;
-}
-
-.card {
-    border: solid 1px black;
+td{
+    width: 30%;
 }
 
 .icon_footer {
-    height: 2.5rem;
-    width: 2.5rem;
+    height: 2rem;
+    width: 2rem;
 }
 
 footer h3{
