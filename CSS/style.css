@@ -24,6 +24,10 @@ body{
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+.imageH {
+    min-height: 30vh;
+}
+
 .resize_textarea {
     resize: none;
 }

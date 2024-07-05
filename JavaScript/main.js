@@ -212,9 +212,9 @@ function pintarTarjetas(eventos) {
 
         tarjeta.innerHTML = `
             
-            <div class="card border border-1 border-dark">
-                <img src=${eventos[i].image} class="card-img-top img-fluid" alt="card">
-                <div class="card-body mx-auto h-100">
+            <div class="card border border-1 border-dark h-100">
+                <img src=${eventos[i].image} class="card-img-top img-fluid imageH" alt="card">
+                <div class="card-body mx-auto h-100 d-flex flex-column justify-content-around w-100">
                     <h5 class="card-title text-center">${eventos[i].name}</h5>
                     <p class="card-text">${eventos[i].description}</p>
                     <p class="card-text">Category: ${eventos[i].category}</p>
