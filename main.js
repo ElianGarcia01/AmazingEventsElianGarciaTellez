@@ -194,3 +194,43 @@ const data = {
       },
     ],
   };
+
+data.currentDate //"2023-01-01"
+
+data.events //[0,1,2,3,4,5,6,7,8,9,10,11,12,13]
+
+function pintarTarjetas(eventos) {
+
+    let contenedor = document.getElementById("contenedorTarjetas")
+
+
+    for (let i = 0; i < eventos.length; i++) {
+        
+        let tarjeta = document.createElement('div')
+
+        tarjeta.className = "col"
+
+        tarjeta.innerHTML = `
+            
+            <div class="card border border-1 border-dark">
+                <img src=${eventos[i].image} class="card-img-top img-fluid" alt="card">
+                <div class="card-body mx-auto h-100">
+                    <h5 class="card-title text-center">${eventos[i].name}</h5>
+                    <p class="card-text">${eventos[i].description}</p>
+                    <p class="card-text">Category: ${eventos[i].category}</p>
+                    <p class="card-text">Capacity: ${eventos[i].category}</p>
+                    <div class="d-flex justify-content-between">
+                        <p>Price: ${eventos[i].price}</p>
+                        <a href="./Details.html" class="btn btn-danger">Details</a>
+                    </div>
+                </div>
+            </div>
+            `
+    contenedor.appendChild(tarjeta)
+        
+    }
+
+}
+
+pintarTarjetas(data.events)
+
