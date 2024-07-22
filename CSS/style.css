@@ -26,6 +26,7 @@ body{
 
 .imageH {
     min-height: 27vh;
+    object-fit: cover;
 }
 
 .resize_textarea {
