@@ -199,38 +199,84 @@ data.currentDate //"2023-01-01"
 
 data.events //[0,1,2,3,4,5,6,7,8,9,10,11,12,13]
 
-function pintarTarjetas(eventos) {
 
-    let contenedor = document.getElementById("contenedorTarjetas")
+// FUNCION PARA PINTAR TARJETAS DINAMICAMENTE
+
+function pintarTarjetas(evento) {
+
+  let contenedor = document.getElementById("contenedorTarjetas")
+
+  contenedor.innerHTML = ''
 
 
-    for (let i = 0; i < eventos.length; i++) {
-        
-        let tarjeta = document.createElement('div')
+  evento.forEach (eventos => {
+      
+      let tarjeta = document.createElement('div')
 
-        tarjeta.className = "col"
+      tarjeta.className = "col"
 
-        tarjeta.innerHTML = `
-            
-            <div class="card border border-1 border-dark h-100">
-                <img src=${eventos[i].image} class="card-img-top img-fluid imageH" alt="card">
-                <div class="card-body mx-auto h-100 d-flex flex-column justify-content-around w-100">
-                    <h5 class="card-title text-center">${eventos[i].name}</h5>
-                    <p class="card-text">${eventos[i].description}</p>
-                    <p class="card-text">Category: ${eventos[i].category}</p>
-                    <p class="card-text">Capacity: ${eventos[i].category}</p>
-                    <div class="d-flex justify-content-between">
-                        <p>Price: ${eventos[i].price}</p>
-                        <a href="./Details.html" class="btn btn-danger">Details</a>
-                    </div>
-                </div>
-            </div>
-            `
-    contenedor.appendChild(tarjeta)
-        
-    }
+      tarjeta.innerHTML = `
+          
+          <div class="card border border-1 border-dark h-100">
+              <img src=${eventos.image} class="card-img-top img-fluid imageH" alt="card">
+              <div class="card-body mx-auto h-100 d-flex flex-column justify-content-around w-100">
+                  <h5 class="card-title text-center">${eventos.name}</h5>
+                  <p class="card-text">${eventos.description}</p>
+                  <p class="card-text">Category: ${eventos.category}</p>
+                  <p class="card-text">Capacity: ${eventos.category}</p>
+                  <div class="d-flex justify-content-between">
+                      <p>Price: ${eventos.price}</p>
+                      <a href="./Details.html" class="btn btn-danger">Details</a>
+                  </div>
+              </div>
+          </div>
+          `
+  contenedor.appendChild(tarjeta)
+      
+  })
 
 }
 
+// Llamado de funcion PintarTarjetas
+
 pintarTarjetas(data.events)
+
+
+
+// FUNCION PARA GENERAR LOS CHECKBOXS DE CATEGORIAS DINAMICAMENTE
+
+function pintarCheckboxs(events) {
+
+  let contenedor = document.getElementById("containerChecks")
+  
+  contenedor.innerHTML = ''
+
+  let categoriasUnicas = []
+
+  events.forEach( event => {
+
+      if (!categoriasUnicas.includes(event.category)) {
+          categoriasUnicas.push(event.category)
+      }
+
+  })
+
+  categoriasUnicas.forEach( category => {
+      
+      let categoria = document.createElement('div')
+
+      categoria.className = 'form-check form-check-inline'
+
+      categoria.innerHTML = `
+          <input class="form-check-input border border-1 border-dark" type="checkbox" id="inlineCheckbox1" value="option1">
+          <label class="form-check-label" for="inlineCheckbox1">${category}</label>`
+
+      contenedor.appendChild(categoria)
+  })
+}
+
+
+// Llamado de funcion PintarCheckboxs
+
+pintarCheckboxs(data.events)
 
