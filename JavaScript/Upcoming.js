@@ -201,37 +201,43 @@ data.events //[0,1,2,3,4,5,6,7,8,9,10,11,12,13]
 
 // FUNCION PARA PINTAR TARJETAS FUTURAS DINAMICAMENTE
 
-function pintarTarjetasFuturas(evento) {
+function pintarTarjetasFuturas(eventos) {
 
     let contenedor = document.getElementById("contenedorTarjetas")
+    contenedor.innerHTML = ''
 
-    evento.forEach( eventos => {
+    const eventosFuturos = eventos.filter(evento => evento.date > data.currentDate)
 
-        if (eventos.date > data.currentDate) {
+    eventosFuturos.forEach( evento => {
 
             let tarjeta = document.createElement('div')
             tarjeta.className = "col"
             tarjeta.innerHTML = `
                 
                 <div class="card border border-1 border-dark h-100">
-                    <img src=${eventos.image} class="card-img-top img-fluid imageH" alt="card">
+                    <img src=${evento.image} class="card-img-top img-fluid imageH" alt="card">
                     <div class="card-body mx-auto h-100 d-flex flex-column justify-content-around w-100">
-                        <h5 class="card-title text-center">${eventos.name}</h5>
-                        <p class="card-text">${eventos.description}</p>
-                        <p class="card-text">Category: ${eventos.category}</p>
-                        <p class="card-text">Capacity: ${eventos.category}</p>
+                        <h5 class="card-title text-center">${evento.name}</h5>
+                        <p class="card-text">${evento.description}</p>
+                        <p class="card-text">Category: ${evento.category}</p>
+                        <p class="card-text">Capacity: ${evento.capacity}</p>
                         <div class="d-flex justify-content-between">
-                            <p>Price: ${eventos.price}</p>
+                            <p>Price: ${evento.price}</p>
                             <a href="./Details.html" class="btn btn-danger">Details</a>
                         </div>
                     </div>
                 </div>
                 `
         contenedor.appendChild(tarjeta)
-        }
-    
     })
+    return eventosFuturos
 }
+
+
+// GUARDAR EL ARREGLO RETORNADO EN UNA VARIABLE
+
+const eventosFuturos = pintarTarjetasFuturas(data.events)
+
 
 // FUNCION PARA GENERAR LOS CHECKBOXS DE CATEGORIAS DINAMICAMENTE
 
@@ -267,7 +273,7 @@ function filtrarEventos() {
   let texto = document.getElementById('buscarTexto').value.toLowerCase()
   let checkboxes = Array.from(document.querySelectorAll('#containerChecks input[type=checkbox]')).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value)
   
-  let eventosFiltrados = data.events.filter(evento => {
+  let eventosFiltrados = eventosFuturos.filter(evento => {
       let coincideTexto = evento.name.toLowerCase().includes(texto) || evento.description.toLowerCase().includes(texto)
       let coincideCategoria = checkboxes.length === 0 || checkboxes.includes(evento.category)
       return coincideTexto && coincideCategoria
@@ -287,7 +293,7 @@ function pintarTarjetasConFiltro(tarjetasFiltradas) {
       const mensaje = document.createElement('div')
       mensaje.id = 'no-notes'
       mensaje.className = 'text-center'
-      mensaje.innerText = 'UNA DISCULPA, NO ES POSIBLE ENCONTRAR RESULTADOS PARA TU BUSQUEDA'
+      mensaje.innerText = 'UNA DISCULPA, NO SE ENCONTRARON RESULTADOS EN TU BUSQUEDA'
       contenedor.appendChild(mensaje)
       return
   }
