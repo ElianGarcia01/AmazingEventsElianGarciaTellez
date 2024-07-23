@@ -223,7 +223,7 @@ function pintarTarjetasFuturas(eventos) {
                         <p class="card-text">Capacity: ${evento.capacity}</p>
                         <div class="d-flex justify-content-between">
                             <p>Price: ${evento.price}</p>
-                            <a href="./Details.html" class="btn btn-danger">Details</a>
+                            <a href="./Details.html?id=${evento._id}" class="btn btn-danger">Details</a>
                         </div>
                     </div>
                 </div>
@@ -311,7 +311,7 @@ function pintarTarjetasConFiltro(tarjetasFiltradas) {
                   <p class="card-text">Capacity: ${eventos.capacity}</p>
                   <div class="d-flex justify-content-between">
                       <p>Price: ${eventos.price}</p>
-                      <a href="./Details.html" class="btn btn-danger">Details</a>
+                      <a href="./Details.html?id=${eventos._id}" class="btn btn-danger">Details</a>
                   </div>
               </div>
           </div>`

@@ -195,139 +195,40 @@ const data = {
     ],
   };
 
-data.currentDate //"2023-01-01"
 
-data.events //[0,1,2,3,4,5,6,7,8,9,10,11,12,13]
+// URL Search Params
 
-// FUNCION PARA PINTAR TARJETAS PASADAS DINAMICAMENTE
+const urlParams = new URLSearchParams(window.location.search)
 
-function pintarTarjetasPasadas(eventos) {
+const eventoID = urlParams.get('id')
 
-    let contenedor = document.getElementById("contenedorTarjetas")
-    contenedor.innerHTML = ''
+const evento = data.events.find( a => a._id === eventoID)
 
-    const eventosPasados = eventos.filter(evento => evento.date < data.currentDate)
+const contenedor = document.getElementById('contenedor')
 
-    eventosPasados.forEach(evento => {
-
-            let tarjeta = document.createElement('div')
-            tarjeta.className = "col"
-            tarjeta.innerHTML = `
-                
-                <div class="card border border-1 border-dark h-100">
-                    <img src=${evento.image} class="card-img-top img-fluid imageH" alt="card">
-                    <div class="card-body mx-auto h-100 d-flex flex-column justify-content-around w-100">
-                        <h5 class="card-title text-center">${evento.name}</h5>
-                        <p class="card-text">${evento.description}</p>
-                        <p class="card-text">Category: ${evento.category}</p>
-                        <p class="card-text">Capacity: ${evento.capacity}</p>
-                        <div class="d-flex justify-content-between">
-                            <p>Price: ${evento.price}</p>
-                            <a href="./Details.html?id=${evento._id}" class="btn btn-danger">Details</a>
-                        </div>
-                    </div>
-                </div>
-                `
-        contenedor.appendChild(tarjeta)
-    })
-    return eventosPasados
-}
+let tarjeta = `
+      <div class="container details d-flex justify-content-center">
+      <div class="card my-5 border border-1 border-dark">
+        <div class="row p-5">
+          <div class="col-md-6 border border-1 border-dark d-flex align-items-center">
+            <img src="${evento.image}" class="img-fluid rounded-3" alt="${evento.name}">
+          </div>
+          <div class="col-md-6 border border-1 border-dark">
+            <div class="card-body">
+              <h5 class="card-title text-center">${evento.name}</h5>
+              <br>
+              <p class="card-text"><span class="fw-bold">Date:</span> ${evento.date}</p>
+              <p class="card-text"><span class="fw-bold">Description:</span> ${evento.description}</p>
+              <p class="card-text"><span class="fw-bold">Category:</span> ${evento.category}</p>
+              <p class="card-text"><span class="fw-bold">Place:</span> ${evento.place}</p>
+              <p class="card-text"><span class="fw-bold">Capacity:</span> ${evento.capacity}</p>
+              <p class="card-text"><span class="fw-bold">Estimate:</span> ${evento.estimate}</p>
+              <p class="card-text"><span class="fw-bold">Price:</span> $${evento.price}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`
+contenedor.innerHTML = tarjeta
 
 
-// GUARDAR EL ARREGLO RETORNADO EN UNA VARIABLE
-
-const eventosPasados = pintarTarjetasPasadas(data.events)
-
-
-// FUNCION PARA GENERAR LOS CHECKBOXS DE CATEGORIAS DINAMICAMENTE
-
-function pintarCheckboxs(events) {
-
-  let contenedor = document.getElementById("containerChecks")
-  contenedor.innerHTML = ''
-  let categoriasUnicas = []
-
-  events.forEach( event => {
-
-      if (!categoriasUnicas.includes(event.category)) {
-          categoriasUnicas.push(event.category)
-      }
-
-  })
-
-  categoriasUnicas.forEach( category => {
-      
-      let categoria = document.createElement('div')
-      categoria.className = 'form-check form-check-inline'
-
-      categoria.innerHTML = `
-          <input class="form-check-input border border-1 border-dark" type="checkbox" value="${category}" id="${category}">
-          <label class="form-check-label" for="${category}">${category}</label>`
-      contenedor.appendChild(categoria)
-  })
-}
-
-
-// FUNCION DEL FILTRO DE CHECKBOXS (POR CATEGORIAS)
-
-function filtrarEventos() {
-  let texto = document.getElementById('buscarTexto').value.toLowerCase()
-  let checkboxes = Array.from(document.querySelectorAll('#containerChecks input[type=checkbox]')).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value)
-  
-  let eventosFiltrados = eventosPasados.filter(evento => {
-      let coincideTexto = evento.name.toLowerCase().includes(texto) || evento.description.toLowerCase().includes(texto)
-      let coincideCategoria = checkboxes.length === 0 || checkboxes.includes(evento.category)
-      return coincideTexto && coincideCategoria
-  })
-
-  pintarTarjetasConFiltro(eventosFiltrados)
-}
-
-
-// FUNCION PARA PINTAR NUEVAMENTE LAS TARJETAS AL HACER LOS FILTROS
-
-function pintarTarjetasConFiltro(tarjetasFiltradas) {
-  const contenedor = document.getElementById('contenedorTarjetas')
-  contenedor.innerHTML = ''
-
-  if (tarjetasFiltradas.length === 0) {
-      const mensaje = document.createElement('div')
-      mensaje.id = 'no-notes'
-      mensaje.className = 'text-center'
-      mensaje.innerText = 'LO SENTIMOS, NO SE ENCONTRARON RESULTADOS EN TU BUSQUEDA'
-      contenedor.appendChild(mensaje)
-      return
-  }
-
-  tarjetasFiltradas.forEach(eventos => {
-      let tarjeta = document.createElement('div')
-      tarjeta.className = "col"
-      tarjeta.innerHTML = `
-          <div class="card border border-1 border-dark h-100">
-              <img src=${eventos.image} class="card-img-top img-fluid imageH" alt="card">
-              <div class="card-body mx-auto h-100 d-flex flex-column justify-content-around w-100">
-                  <h5 class="card-title text-center">${eventos.name}</h5>
-                  <p class="card-text">${eventos.description}</p>
-                  <p class="card-text">Category: ${eventos.category}</p>
-                  <p class="card-text">Capacity: ${eventos.capacity}</p>
-                  <div class="d-flex justify-content-between">
-                      <p>Price: ${eventos.price}</p>
-                      <a href="./Details.html?id=${eventos._id}" class="btn btn-danger">Details</a>
-                  </div>
-              </div>
-          </div>`
-      contenedor.appendChild(tarjeta)
-  })
-}
-
-
-// CAPTURA DE LOS ELEMENTOS DOM EN LOS EVENTOS INPUT Y CHANGE
-
-document.getElementById('buscarTexto').addEventListener('input', filtrarEventos)
-document.getElementById('containerChecks').addEventListener('change', filtrarEventos)
-
-
-// LLAMADO DE FUNCIONES PARA PINTAR TARJETAS Y CHECKBOXS
-
-pintarCheckboxs(data.events)
-pintarTarjetasPasadas(data.events)
