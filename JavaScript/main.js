@@ -287,7 +287,7 @@ function pintarTarjetasConFiltro(tarjetasFiltradas) {
       const mensaje = document.createElement('div')
       mensaje.id = 'no-notes'
       mensaje.className = 'text-center'
-      mensaje.innerText = 'UNA DISCULPA, NO SE ENCONTRARON RESULTADOS EN TU BUSQUEDA'
+      mensaje.innerText = 'LO SENTIMOS, NO SE ENCONTRARON RESULTADOS EN TU BUSQUEDA'
       contenedor.appendChild(mensaje)
       return
   }
