@@ -34,7 +34,7 @@ function cargarDatos() {
 }
 
 
-// Funcion para cargar la funcion importadas
+// Funcion para actualizar la funcion filtrarEventos
 function actualizarFiltros() {
   let texto = buscarTexto.value.toLowerCase()
   let checkboxesMarcados = Array.from(document.querySelectorAll('#containerChecks input[type=checkbox]')).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value)

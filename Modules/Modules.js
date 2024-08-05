@@ -32,29 +32,29 @@ export function pintarTarjetas(arreglo, contenedor) {
                   </div>
               </div>
               `;
-        contenedor.appendChild(tarjeta);
+        contenedor.appendChild(tarjeta)
     })
 }
 
 export function pintarCheckboxs(arreglo, contenedor) {
-    contenedor.innerHTML = '';
+    contenedor.innerHTML = ''
 
     arreglo.forEach(category => {
-        let categoria = document.createElement('div');
-        categoria.className = 'form-check form-check-inline';
+        let categoria = document.createElement('div')
+        categoria.className = 'form-check form-check-inline'
         categoria.innerHTML = `
             <input class="form-check-input border-2 border-dark" type="checkbox" value="${category}" id="${category}">
-            <label class="form-check-label" for="${category}">${category}</label>`;
-        contenedor.appendChild(categoria);
+            <label class="form-check-label" for="${category}">${category}</label>`
+        contenedor.appendChild(categoria)
     });
 }
 
 export function filtrarEventos(arreglo, textoIngresado, checkboxes, contenedorTarjetas) {
     let eventosFiltrados = arreglo.filter(evento => {
-        let coincideTexto = evento.name.toLowerCase().includes(textoIngresado) || evento.description.toLowerCase().includes(textoIngresado);
-        let coincideCategoria = checkboxes.length === 0 || checkboxes.includes(evento.category);
-        return coincideTexto && coincideCategoria;
-    });
+        let coincideTexto = evento.name.toLowerCase().includes(textoIngresado) || evento.description.toLowerCase().includes(textoIngresado)
+        let coincideCategoria = checkboxes.length === 0 || checkboxes.includes(evento.category)
+        return coincideTexto && coincideCategoria
+    })
 
-    pintarTarjetas(eventosFiltrados, contenedorTarjetas);
+    pintarTarjetas(eventosFiltrados, contenedorTarjetas)
 }
