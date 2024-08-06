@@ -12,7 +12,8 @@ body{
 }
 
 .carousel-item img{
-    max-height: 80vh;
+    max-height: 36vh;
+    object-fit: cover;
 }
 
 .overlay {
@@ -34,7 +35,7 @@ body{
 }
 
 td{
-    width: 30%;
+    width: 33.3%;
 }
 
 .icon_footer {

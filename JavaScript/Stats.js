@@ -1,10 +1,15 @@
-import * as modulo from '../Modules/modules.js'
+import * as modulo from '../Modules/Modules.js'
 
 // IMPORTAR INFORMACION DE LA API
 modulo.obtenerDatos()
     .then(datos => {
         let data = datos
         let eventos = data.events
+
+        // Filtro de eventos futuros
+        let eventosFuturos = eventos.filter(evento => evento.date > data.currentDate)
+        let eventosPasados = eventos.filter(evento => evento.date < data.currentDate)
+
 
         // TABLA EVENTS ESTATISTICS
 
@@ -46,8 +51,6 @@ modulo.obtenerDatos()
             }
         })
 
-        // ENCONTRAR EL EVENTO CON MAYOR CAPACIDAD
-
         // ENCONTRAR EL EVENTO CON LA MAYOR CAPACIDAD
         let maxCapacidad = 0
         let eventoMaxCapacidad = null
@@ -73,42 +76,123 @@ modulo.obtenerDatos()
             row.innerHTML = `
                 <td class="text-center">The event with the highest percentage of assistance is: ${eventoMaxAsistencia.name}, with ${maxPorcentajeAsistencia.toFixed(2)} % of assistance</td>
                 <td class="text-center">The event with the lowest percentage of assistance is: ${eventoMinAsistencia.name}, with ${minPorcentajeAsistencia.toFixed(2)} % of assistance</td>
-                <td class="text-center">The event with the highest capacity is: ${eventoMaxCapacidad.name}, with a capacity of ${maxCapacidad}</td>
+                <td class="text-center">The event with the highest capacity is: ${eventoMaxCapacidad.name}, with a capacity of ${maxCapacidad.toLocaleString('en-US')} people</td>
             `
             tableBody.appendChild(row)
         }
 
 
-        // UPCOMINGS EVENTS
-        let tableBodyUpcomings = document.querySelector('#upcomingsEvents tbody')
-        tableBodyUpcomings.innerHTML = ''
+        // UPCOMINGS EVENTS BY CATEGORIA
 
-        eventos.forEach(datos => {
+        // Objeto para acumular las ganancias por categoría
+        let gananciasPorCategoria = {}
 
+        eventosFuturos.forEach(evento => {
 
+            let categoria = evento.category
+
+            // Inicializar la categoría en el objeto si no existe
+            if (!gananciasPorCategoria[categoria]) {
+                gananciasPorCategoria[categoria] = {
+                    asistidas: 0,
+                    estimadas: 0,
+                    totales: 0,
+                    asistencia: 0,
+                    capacidad: 0,
+                    porcentaje: 0
+                }
+            }
+
+            // Calcular ganancias asistidas si assistance no es undefined
+            if (evento.assistance !== undefined) {
+                let gananciasAsistidas = evento.assistance * evento.price
+                gananciasPorCategoria[categoria].asistidas += gananciasAsistidas
+
+            }
+
+            // Calcular ganancias estimadas si estimate no es undefined
+            if (evento.estimate !== undefined) {
+                let gananciasEstimadas = evento.estimate * evento.price
+                gananciasPorCategoria[categoria].estimadas += gananciasEstimadas
+                gananciasPorCategoria[categoria].asistencia += evento.estimate
+                gananciasPorCategoria[categoria].capacidad += evento.capacity
+            }
+
+            // Actualizar el total de ganancias para la categoría
+            gananciasPorCategoria[categoria].totales = gananciasPorCategoria[categoria].asistidas + gananciasPorCategoria[categoria].estimadas
+        })
+
+        // Mostrar informacion en la tabla
+        for (let categoria in gananciasPorCategoria) {
+            if (gananciasPorCategoria[categoria].capacidad > 0) {
+                gananciasPorCategoria[categoria].porcentaje = (gananciasPorCategoria[categoria].asistencia / gananciasPorCategoria[categoria].capacidad) * 100
+            }
+
+            let tableBodyUpcomings = document.querySelector('#upcomingsEvents tbody')
             const row = document.createElement('tr')
             row.innerHTML = `
-                        <td>${datos.name} </td>
-                        <td>${datos.date} </td>
-                        <td>${datos.category} </td>
-        `
+                        <td>${categoria}</td>
+                        <td>$ ${gananciasPorCategoria[categoria].totales.toLocaleString('en-US')}</td>
+                        <td>${gananciasPorCategoria[categoria].porcentaje.toFixed(2)} %</td>
+                        `
             tableBodyUpcomings.appendChild(row)
-        })
+        }
+
 
         // PAST EVENTS
-        let tableBodyPast = document.querySelector('#pastEvents tbody')
-        tableBodyPast.innerHTML = ''
 
-        eventos.forEach(datos => {
+        // Objeto para acumular las ganancias por categoría
+        gananciasPorCategoria = {}
 
+        eventosPasados.forEach(evento => {
 
+            let categoria = evento.category
+
+            // Inicializar la categoría en el objeto si no existe
+            if (!gananciasPorCategoria[categoria]) {
+                gananciasPorCategoria[categoria] = {
+                    asistidas: 0,
+                    estimadas: 0,
+                    totales: 0,
+                    asistencia: 0,
+                    capacidad: 0,
+                    porcentaje: 0
+                }
+            }
+
+            // Calcular ganancias asistidas si assistance no es undefined
+            if (evento.assistance !== undefined) {
+                let gananciasAsistidas = evento.assistance * evento.price
+                gananciasPorCategoria[categoria].asistidas += gananciasAsistidas
+                gananciasPorCategoria[categoria].asistencia += evento.assistance
+                gananciasPorCategoria[categoria].capacidad += evento.capacity
+            }
+
+            // Calcular ganancias estimadas si estimate no es undefined
+            if (evento.estimate !== undefined) {
+                let gananciasEstimadas = evento.estimate * evento.price
+                gananciasPorCategoria[categoria].estimadas += gananciasEstimadas
+            }
+
+            // Actualizar el total de ganancias para la categoría
+            gananciasPorCategoria[categoria].totales = gananciasPorCategoria[categoria].asistidas + gananciasPorCategoria[categoria].estimadas
+        })
+
+        // Mostrar informacion en la tabla
+        for (let categoria in gananciasPorCategoria) {
+
+            if (gananciasPorCategoria[categoria].capacidad > 0) {
+                gananciasPorCategoria[categoria].porcentaje = (gananciasPorCategoria[categoria].asistencia / gananciasPorCategoria[categoria].capacidad) * 100
+            }
+
+            let tableBodyPast = document.querySelector('#pastEvents tbody')
             const row = document.createElement('tr')
             row.innerHTML = `
-                        <td>${datos.name} </td>
-                        <td>${datos.date} </td>
-                        <td>${datos.category} </td>
-        `
+                        <td>${categoria}</td>
+                        <td>$ ${gananciasPorCategoria[categoria].totales.toLocaleString('en-US')}</td>
+                        <td>${gananciasPorCategoria[categoria].porcentaje.toFixed(2)} %</td>
+                        `
             tableBodyPast.appendChild(row)
-        })
+        }
     })
     .catch(error => console.error('Error al cargar los datos:', error))
