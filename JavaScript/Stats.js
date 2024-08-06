@@ -6,25 +6,24 @@ modulo.obtenerDatos()
         let data = datos
         let eventos = data.events
 
-        // Filtro de eventos futuros
+        // Filtro de eventos futuros y pasados
         let eventosFuturos = eventos.filter(evento => evento.date > data.currentDate)
         let eventosPasados = eventos.filter(evento => evento.date < data.currentDate)
 
-
-        // TABLA EVENTS ESTATISTICS
+        // TABLA EVENTS ESTATISTICS % OF ASSISTANCE
 
         // ENCONTRAR EL EVENTO CON EL MAYOR PORCENTAJE DE ASISTENCIA
         let maxPorcentajeAsistencia = 0
         let eventoMaxAsistencia = null
 
         eventos.forEach(evento => {
-            let asistencia = evento.assistance
-            let capacidad = evento.capacity
 
-            // VERIFICAR QUE ASISTENCIA Y CAPACIDAD NO SEAN INDEFINIDAS
-            if (asistencia !== undefined && capacidad !== undefined) {
-                let porcentajeAsistencia = (asistencia / capacidad) * 100
+            // Verificar que asistencia y capacidad no sean indefinidas
+            if (evento.assistance !== undefined && evento.capacity !== undefined) {
+                // Obtener porcentaje de asistencia
+                let porcentajeAsistencia = (evento.assistance / evento.capacity) * 100
 
+                // Buscar el elemento de mayor porcentaje de asistencia
                 if (porcentajeAsistencia > maxPorcentajeAsistencia) {
                     maxPorcentajeAsistencia = porcentajeAsistencia
                     eventoMaxAsistencia = evento
@@ -37,13 +36,12 @@ modulo.obtenerDatos()
         let eventoMinAsistencia = null
 
         eventos.forEach(evento => {
-            let asistencia = evento.assistance
-            let capacidad = evento.capacity
+            // Verificar que asistencia y capacidad no sean indefinidas
+            if (evento.assistance !== undefined && evento.capacity !== undefined) {
+                // Obtener porcentaje de asistencia
+                let porcentajeAsistencia = (evento.assistance / evento.capacity) * 100
 
-            // VERIFICAR QUE ASISTENCIA Y CAPACIDAD NO SEAN INDEFINIDAS
-            if (asistencia !== undefined && capacidad !== undefined) {
-                let porcentajeAsistencia = (asistencia / capacidad) * 100
-
+                // Buscar el elemento de menor porcentaje de asistencia
                 if (porcentajeAsistencia < minPorcentajeAsistencia) {
                     minPorcentajeAsistencia = porcentajeAsistencia
                     eventoMinAsistencia = evento
@@ -56,12 +54,11 @@ modulo.obtenerDatos()
         let eventoMaxCapacidad = null
 
         eventos.forEach(evento => {
-            let capacidad = evento.capacity
-
-            // VERIFICAR QUE CAPACIDAD NO SEA INDEFINIDA
-            if (capacidad !== undefined) {
-                if (capacidad > maxCapacidad) {
-                    maxCapacidad = capacidad
+            // Verificar que capacidad no sea indefinida
+            if (evento.capacity !== undefined) {
+                // Buscar el elemento de mayor capacidad
+                if (evento.capacity > maxCapacidad) {
+                    maxCapacidad = evento.capacity
                     eventoMaxCapacidad = evento
                 }
             }
@@ -69,14 +66,14 @@ modulo.obtenerDatos()
 
         // MOSTRAR FILA DE LA TABLA COMPLETA CON LAS TRES ESTADISTICAS
         let tableBody = document.querySelector('#events tbody')
-        tableBody.innerHTML = '' // Limpia la tabla antes de agregar nuevas filas
 
+        // Verificar que los tres elementos tengan valores
         if (eventoMaxAsistencia && eventoMinAsistencia && eventoMaxCapacidad) {
             const row = document.createElement('tr')
             row.innerHTML = `
                 <td class="text-center">The event with the highest percentage of assistance is: ${eventoMaxAsistencia.name}, with ${maxPorcentajeAsistencia.toFixed(2)} % of assistance</td>
                 <td class="text-center">The event with the lowest percentage of assistance is: ${eventoMinAsistencia.name}, with ${minPorcentajeAsistencia.toFixed(2)} % of assistance</td>
-                <td class="text-center">The event with the highest capacity is: ${eventoMaxCapacidad.name}, with a capacity of ${maxCapacidad.toLocaleString('en-US')} people</td>
+                <td class="text-center">The event with the highest capacity is: ${eventoMaxCapacidad.name}, with a capacity of ${maxCapacidad}</td>
             `
             tableBody.appendChild(row)
         }
@@ -88,72 +85,56 @@ modulo.obtenerDatos()
         let gananciasPorCategoria = {}
 
         eventosFuturos.forEach(evento => {
-
             let categoria = evento.category
 
-            // Inicializar la categoría en el objeto si no existe
+            // Agregar la categoría en el objeto si no existe
             if (!gananciasPorCategoria[categoria]) {
                 gananciasPorCategoria[categoria] = {
-                    asistidas: 0,
                     estimadas: 0,
-                    totales: 0,
-                    asistencia: 0,
+                    estimado: 0,
                     capacidad: 0,
                     porcentaje: 0
                 }
             }
 
-            // Calcular ganancias asistidas si assistance no es undefined
-            if (evento.assistance !== undefined) {
-                let gananciasAsistidas = evento.assistance * evento.price
-                gananciasPorCategoria[categoria].asistidas += gananciasAsistidas
-
-            }
-
-            // Calcular ganancias estimadas si estimate no es undefined
+            // // Calcular ganancias estimadas si estimate no es undefined
             if (evento.estimate !== undefined) {
                 let gananciasEstimadas = evento.estimate * evento.price
                 gananciasPorCategoria[categoria].estimadas += gananciasEstimadas
-                gananciasPorCategoria[categoria].asistencia += evento.estimate
+                gananciasPorCategoria[categoria].estimado += evento.estimate
                 gananciasPorCategoria[categoria].capacidad += evento.capacity
             }
-
-            // Actualizar el total de ganancias para la categoría
-            gananciasPorCategoria[categoria].totales = gananciasPorCategoria[categoria].asistidas + gananciasPorCategoria[categoria].estimadas
         })
 
         // Mostrar informacion en la tabla
         for (let categoria in gananciasPorCategoria) {
             if (gananciasPorCategoria[categoria].capacidad > 0) {
-                gananciasPorCategoria[categoria].porcentaje = (gananciasPorCategoria[categoria].asistencia / gananciasPorCategoria[categoria].capacidad) * 100
+                gananciasPorCategoria[categoria].porcentaje = (gananciasPorCategoria[categoria].estimado / gananciasPorCategoria[categoria].capacidad) * 100
             }
 
             let tableBodyUpcomings = document.querySelector('#upcomingsEvents tbody')
             const row = document.createElement('tr')
             row.innerHTML = `
                         <td>${categoria}</td>
-                        <td>$ ${gananciasPorCategoria[categoria].totales.toLocaleString('en-US')}</td>
+                        <td>$ ${gananciasPorCategoria[categoria].estimadas.toLocaleString('en-US')}</td>
                         <td>${gananciasPorCategoria[categoria].porcentaje.toFixed(2)} %</td>
                         `
             tableBodyUpcomings.appendChild(row)
         }
 
 
-        // PAST EVENTS
+        // PAST EVENTS BY CATEGORY
 
         // Objeto para acumular las ganancias por categoría
         gananciasPorCategoria = {}
 
         eventosPasados.forEach(evento => {
-
             let categoria = evento.category
 
             // Inicializar la categoría en el objeto si no existe
             if (!gananciasPorCategoria[categoria]) {
                 gananciasPorCategoria[categoria] = {
                     asistidas: 0,
-                    estimadas: 0,
-                    totales: 0,
                     asistencia: 0,
                     capacidad: 0,
                     porcentaje: 0
@@ -167,29 +148,20 @@ modulo.obtenerDatos()
                 gananciasPorCategoria[categoria].asistencia += evento.assistance
                 gananciasPorCategoria[categoria].capacidad += evento.capacity
             }
-
-            // Calcular ganancias estimadas si estimate no es undefined
-            if (evento.estimate !== undefined) {
-                let gananciasEstimadas = evento.estimate * evento.price
-                gananciasPorCategoria[categoria].estimadas += gananciasEstimadas
-            }
-
-            // Actualizar el total de ganancias para la categoría
-            gananciasPorCategoria[categoria].totales = gananciasPorCategoria[categoria].asistidas + gananciasPorCategoria[categoria].estimadas
         })
 
-        // Mostrar informacion en la tabla
         for (let categoria in gananciasPorCategoria) {
-
+            // Obtener porcentaje por categorias
             if (gananciasPorCategoria[categoria].capacidad > 0) {
                 gananciasPorCategoria[categoria].porcentaje = (gananciasPorCategoria[categoria].asistencia / gananciasPorCategoria[categoria].capacidad) * 100
             }
 
+            // Mostrar informacion en la tabla
             let tableBodyPast = document.querySelector('#pastEvents tbody')
             const row = document.createElement('tr')
             row.innerHTML = `
                         <td>${categoria}</td>
-                        <td>$ ${gananciasPorCategoria[categoria].totales.toLocaleString('en-US')}</td>
+                        <td>$ ${gananciasPorCategoria[categoria].asistidas.toLocaleString('en-US')}</td>
                         <td>${gananciasPorCategoria[categoria].porcentaje.toFixed(2)} %</td>
                         `
             tableBodyPast.appendChild(row)
